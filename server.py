@@ -53,6 +53,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send(500, json.dumps({"error": type(exc).__name__}).encode())
             return self._send(200, json.dumps({"generated_at": snap["generated_at"], "errors": snap["errors"],
                                                "data": snap[VIEWS[path]]}).encode())
+        if path == "/favicon.ico":  # no icon shipped; 204 keeps browser consoles clean
+            return self._send(204, b"")
         if path == "/healthz":
             return self._send(200, b'{"ok":true}')
         self._send(404, b'{"error":"not found"}')

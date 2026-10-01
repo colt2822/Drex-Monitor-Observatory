@@ -35,6 +35,9 @@ class ServerTests(unittest.TestCase):
             self.assertEqual(code, 200)
             j = json.loads(body); self.assertEqual(len(j["errors"]), 2); self.assertIn("data", j)
 
+    def test_favicon_no_content(self):
+        self.assertEqual(self.req("/favicon.ico")[0], 204)
+
     def test_read_only(self):
         for m in ("POST", "PUT", "DELETE", "PATCH"):
             self.assertEqual(self.req("/api/overview", m)[0], 405)

@@ -4,6 +4,15 @@ A small, read-only dashboard for monitoring **Drex**, the routing/decision model
 
 Standard library only (Python 3.10+). No build step, no front-end framework, no external requests, no telemetry.
 
+## How it works
+
+```
+Drex / routing data (SQLite, read-only)
+  -> collector.py
+  -> read-only JSON API (server.py)
+  -> Observatory UI (static/)
+```
+
 ## What it monitors
 
 Two SQLite databases, both opened read-only (`mode=ro` plus `PRAGMA query_only=1`):
@@ -20,6 +29,8 @@ export DREX_MONITOR_ROUTER_DB=/path/to/router.db
 export DREX_MONITOR_NOVA_DB=/path/to/nova.db
 python3 server.py
 ```
+
+With neither variable set, the server still starts and every view shows an empty state with the reason.
 
 Open the URL it prints (default `http://127.0.0.1:4010`; the next free port is used if busy).
 
@@ -53,4 +64,4 @@ Working, early. The collector depends on the NOVA/router schema above and is not
 
 ## License
 
-No license has been chosen yet; all rights reserved until one is added.
+[MIT](LICENSE)
